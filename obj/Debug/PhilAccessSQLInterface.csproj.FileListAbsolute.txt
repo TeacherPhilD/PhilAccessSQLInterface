@@ -1,0 +1,17 @@
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\bin\Debug\PhilAccessSQLInterface.exe.config
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\bin\Debug\PhilAccessSQLInterface.exe
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\bin\Debug\PhilAccessSQLInterface.pdb
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.csproj.AssemblyReference.cache
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\MainWindow.g.cs
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\App.g.cs
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface_MarkupCompile.cache
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface_MarkupCompile.lref
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\MainWindow.baml
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.g.resources
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.Properties.Resources.resources
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.csproj.GenerateResource.cache
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.csproj.CoreCompileInputs.cache
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.exe
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.pdb
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\ResultsWindow.g.cs
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\ResultsWindow.baml
