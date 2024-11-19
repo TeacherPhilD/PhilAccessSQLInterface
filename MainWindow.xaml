@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhilAccessSQLInterface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="477" Width="790" ResizeMode="NoResize">
+        Title="MainWindow" Height="494" Width="790" ResizeMode="NoResize" Icon="/images/icons/sqlicon.png">
     <DockPanel>
+        <!-- Menu with About item -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem x:Name="muiOpenDB" Header="Open Access DB" Click="btnOpenDB_Click"/>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem x:Name="muiResetGUI" Header="Reset GUI" Click="btnReset_Click"/>
+                <MenuItem x:Name="muiRunSQL" Header="Run SQL" Click="muiRunSQL_Click"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem x:Name="muiAbout" Header="About" Click="AboutMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+
         <StatusBar DockPanel.Dock="Bottom" Name="statusBar">
             <StatusBarItem>
                 <TextBlock Name="statusText" Text="Ready" />
@@ -26,5 +40,3 @@
         </Grid>
     </DockPanel>
 </Window>
-
-

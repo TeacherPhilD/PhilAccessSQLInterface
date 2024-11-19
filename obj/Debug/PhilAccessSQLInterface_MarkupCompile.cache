@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\App.xaml
-2-1023575099
+4-1511567190
 
-101581590263
+12-995820434
 13-1310406943
-MainWindow.xaml;ResultsWindow.xaml;
+CustomMessageBox.xaml;MainWindow.xaml;QueryInputWindow.xaml;ResultsWindow.xaml;
 
 False
 

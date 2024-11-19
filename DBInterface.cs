@@ -16,76 +16,129 @@ namespace PhilAccessSQLInterface
         public DBInterface()
         { }
 
-        //public async Task<string> CheckAccessDB(string strFilePath)
+        // Executes a given SQL query on an Excel file specified by its file path, and returns the results as a string.
+        // 
+        // strQuery: The SQL query to be executed.
+        // strFilePath: The file path of the Excel file to execute the query on.
+        //
+        // returns: A string containing the query results, with columns separated by tabs and rows separated by new lines. If an error occurs, an error message is returned.
+        // Exception: Returns the exception message if an error occurs during query execution.
+        //public async Task<string> ExecuteQuery(string strQuery, string strFilePath)
         //{
-        //    string strRetVal = "Default Error";
+        //    // Connection string for accessing the Excel file using the Microsoft ACE OLEDB provider
         //    string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strFilePath;
         //    using (OleDbConnection connection = new OleDbConnection(connectionString))
         //    {
         //        try
         //        {
+        //            // Open the connection asynchronously
         //            await connection.OpenAsync();
-        //            strRetVal = "Success opening database";
-        //            connection.Close();
+        //            OleDbCommand command = new OleDbCommand(strQuery, connection);
+
+        //            // Execute the query asynchronously and obtain the data reader
+        //            using (OleDbDataReader reader = (OleDbDataReader)await command.ExecuteReaderAsync())
+        //            {
+        //                string results = "";
+        //                // Read the query results asynchronously
+        //                while (await reader.ReadAsync())
+        //                {
+        //                    // Append each column's value, separated by tabs
+        //                    for (int i = 0; i < reader.FieldCount; i++)
+        //                    {
+        //                        results += reader[i] + "\t";
+        //                    }
+        //                    // Append a new line for each row
+        //                    results += Environment.NewLine;
+        //                }
+        //                return results;
+        //            }
         //        }
         //        catch (Exception ex)
         //        {
-        //            strRetVal = "Error: " + ex.Message;
+        //            // Return the error message if an exception occurs
+        //            return "Error: " + ex.Message;
         //        }
-        //        return strRetVal;
         //    }
         //}
-
-        public async Task<string> ExecuteQuery(string query, string strFilePath)
+        public async Task<string> ExecuteQuery(string strQuery, string strFilePath)
         {
+            const int columnWidth = 32; // Default width for each column
+                                        // Connection string for accessing the Excel file using the Microsoft ACE OLEDB provider
             string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strFilePath;
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 try
                 {
+                    // Open the connection asynchronously
                     await connection.OpenAsync();
-                    OleDbCommand command = new OleDbCommand(query, connection);
+                    OleDbCommand command = new OleDbCommand(strQuery, connection);
 
+                    // Execute the query asynchronously and obtain the data reader
                     using (OleDbDataReader reader = (OleDbDataReader)await command.ExecuteReaderAsync())
                     {
-                        string results = "";
+                        StringBuilder results = new StringBuilder();
+
+                        // Read column names for the header
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            results.Append(reader.GetName(i).PadRight(columnWidth)).Append("\t");
+                        }
+                        results.AppendLine();
+
+                        // Read the query results asynchronously
                         while (await reader.ReadAsync())
                         {
+                            // Append each column's value, padded to the column width
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                results += reader[i] + "\t";
+                                results.Append(reader[i].ToString().PadRight(columnWidth)).Append("\t");
                             }
-                            results += Environment.NewLine;
+                            results.AppendLine();
                         }
-                        return results;
+                        return results.ToString();
                     }
                 }
                 catch (Exception ex)
                 {
+                    // Return the error message if an exception occurs
                     return "Error: " + ex.Message;
                 }
             }
         }
 
+
+
+        // Attempts to open a connection to an Access database and returns the result as a string.
+        //
+        // strFilePath: The file path of the Access database to check.
+        //
+        // returns: A string indicating the success or failure of opening the database connection. If successful, returns "Success opening database". If an error occurs, returns the error message.
+        // Exception: Returns the exception message if an error occurs during the connection attempt.
         public async Task<string> CheckAccessDB(string strFilePath)
         {
+            // Default return value in case of an error
             string strRetVal = "Default Error";
+
+            // Connection string for accessing the Access database using the Microsoft ACE OLEDB provider
             string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strFilePath;
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 try
                 {
+                    // Attempt to open the connection asynchronously
                     await connection.OpenAsync();
                     strRetVal = "Success opening database";
                 }
                 catch (Exception ex)
                 {
+                    // Return the error message if an exception occurs
                     strRetVal = "Error: " + ex.Message;
                 }
                 finally
                 {
-                    connection.Close(); // Ensure this happens even if there is an exception
+                    // Ensure the connection is closed, even if an exception occurs
+                    connection.Close();
                 }
             }
 
@@ -94,111 +147,3 @@ namespace PhilAccessSQLInterface
 
     }
 }
-
-/*
- * Let's expand your application to include a text box for SQL queries and a button to execute them, displaying the results in a new window.
-
-Step 1: Update MainWindow XAML
-Add a TextBox and Button to your MainWindow:
-
-<Window x:Class="YourNamespace.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Database Checker" Height="350" Width="525">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom" Name="statusBar">
-            <StatusBarItem>
-                <TextBlock Name="statusText" Text="Ready" />
-            </StatusBarItem>
-            <StatusBarItem>
-                <ProgressBar x:Name="progressBar" IsIndeterminate="True" Width="100" Visibility="Collapsed" />
-            </StatusBarItem>
-        </StatusBar>
-        <StackPanel Margin="10">
-            <TextBox x:Name="queryTextBox" Width="400" Height="100" VerticalAlignment="Top" AcceptsReturn="True"/>
-            <Button Content="Execute Query" Width="100" Height="30" Margin="5" Click="ExecuteQuery_Click"/>
-        </StackPanel>
-    </DockPanel>
-</Window>
-
-Step 2: Update MainWindow Code-Behind
-Handle the button click to execute the query and open a new window with the results:
-
-private async void ExecuteQuery_Click(object sender, RoutedEventArgs e)
-{
-    progressBar.Visibility = Visibility.Visible;
-    statusText.Text = "Executing query...";
-
-    string query = queryTextBox.Text;
-    string result = await Task.Run(async () => await dbInterface.ExecuteQuery(query, strFilePath));
-
-    progressBar.Visibility = Visibility.Collapsed;
-    statusText.Text = "Query executed";
-
-    // Open results window
-    ResultsWindow resultsWindow = new ResultsWindow(result);
-    resultsWindow.Show();
-}
-
-Step 3: Create ResultsWindow
-Add a new WPF Window to your project for displaying query results:
-
-ResultsWindow XAML:
-
-<Window x:Class="YourNamespace.ResultsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Query Results" Height="300" Width="400">
-    <Grid>
-        <TextBox x:Name="resultsTextBox" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
-    </Grid>
-</Window>
-
-ResultsWindow Code-Behind:
-
-public partial class ResultsWindow : Window
-{
-    public ResultsWindow(string result)
-    {
-        InitializeComponent();
-        resultsTextBox.Text = result;
-    }
-}
-
-Step 4: Update dbInterface to Handle SQL Query Execution
-Add the ExecuteQuery method to dbInterface:
-
-public async Task<string> ExecuteQuery(string query, string strFilePath)
-{
-    string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strFilePath;
-    using (OleDbConnection connection = new OleDbConnection(connectionString))
-    {
-        try
-        {
-            await connection.OpenAsync();
-            OleDbCommand command = new OleDbCommand(query, connection);
-
-            using (OleDbDataReader reader = await command.ExecuteReaderAsync())
-            {
-                string results = "";
-                while (await reader.ReadAsync())
-                {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        results += reader[i] + "\t";
-                    }
-                    results += Environment.NewLine;
-                }
-                return results;
-            }
-        }
-        catch (Exception ex)
-        {
-            return "Error: " + ex.Message;
-        }
-    }
-}
-
-This will give your app the ability to execute SQL queries and display the results in a new window. How does this setup feel for you?
-
- */

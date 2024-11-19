@@ -15,24 +15,26 @@ using System.Windows.Shapes;
 namespace PhilAccessSQLInterface
 {
     /// <summary>
-    /// Interaction logic for ResultsWindow.xaml
+    /// Interaction logic for CustomMessageBox.xaml
     /// </summary>
-    public partial class ResultsWindow : Window
+    public partial class CustomMessageBox : Window
     {
-        public ResultsWindow(string result)
+        public CustomMessageBox(string message)
         {
             InitializeComponent();
-            resultsTextBox.Text = result;
+            messageTextBlock.Text = message;
         }
 
-        private void btnSaveSQL_Click(object sender, RoutedEventArgs e)
+        private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
-        private void btnSaveResults_Click(object sender, RoutedEventArgs e)
+        public static void Show(string message)
         {
-
+            CustomMessageBox box = new CustomMessageBox(message);
+            box.ShowDialog();
         }
     }
+
 }

@@ -1,0 +1,13 @@
+﻿<Window x:Class="PhilAccessSQLInterface.QueryInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Query Input" Height="200" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="queryTextBox" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Grid.Row="0" Margin="10"/>
+        <Button Content="Execute" Width="100" HorizontalAlignment="Right" Margin="10" Grid.Row="1" Click="ExecuteButton_Click"/>
+    </Grid>
+</Window>

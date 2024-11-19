@@ -15,3 +15,7 @@ H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInte
 H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\PhilAccessSQLInterface.pdb
 H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\ResultsWindow.g.cs
 H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\ResultsWindow.baml
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\CustomMessageBox.baml
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\CustomMessageBox.g.cs
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\QueryInputWindow.baml
+H:\git\PhilAccessSQLInterface\PhilAccessSQLInterface\obj\Debug\QueryInputWindow.g.cs
