@@ -72,13 +72,13 @@ namespace PhilAccessSQLInterface
         private async void ExecuteQuery()
         {
             progressBar.Visibility = Visibility.Visible;
-            statusText.Text = "Executing query...";
+            statusText.Text = Consts.MAIN_DB_EXEC_PROGRESS;
 
             string query = txtSQLQuery.Text;
             string result = await Task.Run(async () => await dbInterface.ExecuteQuery(query, strFilePath));
 
             progressBar.Visibility = Visibility.Collapsed;
-            statusText.Text = "Query executed";
+            statusText.Text = Consts.MAIN_DB_EXEC_FINISHED;
 
             // Open results window
             ResultsWindow resultsWindow = new ResultsWindow(result);
@@ -89,7 +89,7 @@ namespace PhilAccessSQLInterface
         private async void CheckDB()
         {
             progressBar.Visibility = Visibility.Visible; // Show progress bar
-            statusText.Text = "Checking database...";    // Update status text
+            statusText.Text = Consts.MAIN_CHECK_DB;    // Update status text
 
             string result = await Task.Run(async () => await dbInterface.CheckAccessDB(strFilePath));
 
@@ -118,7 +118,7 @@ namespace PhilAccessSQLInterface
         #region Listeners
         private void btnOpenDB_Click(object sender, RoutedEventArgs e)
         {
-            strFilePath = fileLib.OpenFileBrowser("Access Database (*.accdb)|*.accdb|All files (*.*)|*.*");
+            strFilePath = fileLib.OpenFileBrowser(Consts.MAIN_OPEN_FILE_FILTER);
             lblPath.Content = strFilePath;
 
             if (lblPath.Content.Equals(FileLib.OPEN_FILE_DIALOG_ERROR))
@@ -153,7 +153,7 @@ namespace PhilAccessSQLInterface
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            CustomMessageBox.Show("PhilAccessSQLInterface\nVersion 1.0\n© 2023 Your Company Name");
+            CustomMessageBox.Show($"PhilAccessSQLInterface\n{Consts.ABOUT_VERSION}\n{Consts.ABOUT_ICON}");
         }
         #endregion
     }
