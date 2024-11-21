@@ -1,19 +1,37 @@
-﻿using System;
+﻿#region Imports
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#endregion
 
 namespace PhilAccessSQLInterface
 {
     public class Consts
     {
-        public const string ABOUT_VERSION = "0.8";
+        #region About
+        public const string PROGRAM_TITLE = "PhilAccessSQLInterface";
+        public const string ABOUT_AUTHOR = "Phillip Donald";
+        public const string ABOUT_VERSION = "1.0";
         public const string ABOUT_ICON = "\nSQL icon created by Freepik - Flaticon\nhttps://www.flaticon.com/free-icons/sql";
+        #endregion
 
+        #region GUI Strings
         public const string MAIN_DB_EXEC_PROGRESS = "Executing query...";
         public const string MAIN_DB_EXEC_FINISHED = "Query executed";
         public const string MAIN_CHECK_DB = "Checking database...";
-        public const string MAIN_OPEN_FILE_FILTER = "Access Database (*.accdb)|*.accdb|All files (*.*)|*.*";
+        public const string MAIN_PATH_DEFAULT = "No path set";
+        public const string MAIN_GUI_RESET = "GUI has been reset";
+
+        public const string MAIN_OPEN_ACCESS_FILE_FILTER = "Access Database (*.accdb)|*.accdb|All files (*.*)|*.*";
+        public const string MAIN_SAVE_LOG_FILE_FILTER = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+
+        public const string LOG_SPACER = "--- ---";
+        #endregion
+
+        #region Results
+        public const int RESULTS_COLUMN_WIDTH = 32; // Default width for each column
+        #endregion
     }
 }

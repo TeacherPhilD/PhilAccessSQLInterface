@@ -32,18 +32,20 @@ namespace PhilAccessSQLInterface
         GUICollection guiCollection = new GUICollection();
         #endregion
 
+        #region GUI Init
         public MainWindow()
         {
             InitializeComponent();
             SetupGUI();
         }
 
-        #region Utility Functions
         private void SetupGUI()
         {
             NoDBSelected();
         }
+        #endregion
 
+        #region Utility Functions
         private void NoDBSelected()
         {
             btnOpenDB.IsEnabled = true;
@@ -68,57 +70,69 @@ namespace PhilAccessSQLInterface
         }
         #endregion
 
+        #region Query Functions
         // Execute SQL query on access database
-        private async void ExecuteQuery()
+        private async void ExecuteQuery(string strQuery)
         {
+            // Set GUI to loading state
             progressBar.Visibility = Visibility.Visible;
             statusText.Text = Consts.MAIN_DB_EXEC_PROGRESS;
 
-            string query = txtSQLQuery.Text;
-            string result = await Task.Run(async () => await dbInterface.ExecuteQuery(query, strFilePath));
+            string strResult = await Task.Run(async () => await dbInterface.ExecuteQuery(strQuery, strFilePath));
 
+            // Set GUI to finished state
             progressBar.Visibility = Visibility.Collapsed;
             statusText.Text = Consts.MAIN_DB_EXEC_FINISHED;
 
             // Open results window
-            ResultsWindow resultsWindow = new ResultsWindow(result);
+            ResultsWindow resultsWindow = new ResultsWindow(strResult, strQuery);
             resultsWindow.Show();
         }
 
         // Check that access database exists
         private async void CheckDB()
         {
+            // Set GUI to loading state
             progressBar.Visibility = Visibility.Visible; // Show progress bar
             statusText.Text = Consts.MAIN_CHECK_DB;    // Update status text
 
-            string result = await Task.Run(async () => await dbInterface.CheckAccessDB(strFilePath));
+            string strResult = await Task.Run(async () => await dbInterface.CheckAccessDB(strFilePath));
 
+            // Set GUI to finished state
             progressBar.Visibility = Visibility.Collapsed; // Hide progress bar
-            statusText.Text = result;                      // Update status with result
-            DBSelected();
-        }
+            statusText.Text = strResult;                      // Update status with result
 
-        private void RunSQLMenu()
-        {
-            QueryInputWindow inputWindow = new QueryInputWindow();
-            bool? result = inputWindow.ShowDialog();
-
-            // Check if the dialog result is true (user clicked Execute)
-            if (result == true)
+            if(strResult.Contains("Error"))
             {
-                guiCollection.ShowMsg("test", inputWindow.UserInput);
+                guiCollection.ErrorPopUp("Error Opening Access Database", strResult);
             }
             else
             {
-                guiCollection.ShowMsg("test", "error");
+                // Set GUI to state where database has been selected
+                DBSelected();
             }
+            
         }
 
+        // Grab input from a custom input window instead of the textbox
+        private void SQLQueryFromMenu()
+        {
+            QueryInputWindow inputWindow = new QueryInputWindow();
+            bool? booResult = inputWindow.ShowDialog();
+
+            // Check if the dialog result is true (user clicked Execute)
+            if (booResult == true)
+            {
+                // Execute query
+                ExecuteQuery(inputWindow.UserInput);
+            }
+        }
+        #endregion
 
         #region Listeners
         private void btnOpenDB_Click(object sender, RoutedEventArgs e)
         {
-            strFilePath = fileLib.OpenFileBrowser(Consts.MAIN_OPEN_FILE_FILTER);
+            strFilePath = fileLib.OpenFileBrowser(Consts.MAIN_OPEN_ACCESS_FILE_FILTER);
             lblPath.Content = strFilePath;
 
             if (lblPath.Content.Equals(FileLib.OPEN_FILE_DIALOG_ERROR))
@@ -133,27 +147,27 @@ namespace PhilAccessSQLInterface
 
         private void btnRunSQL_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteQuery();
+            ExecuteQuery(txtSQLQuery.Text);
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
             NoDBSelected();
-            lblPath.Content = "No path set";
-            statusText.Text = "GUI has been reset";
+            lblPath.Content = Consts.MAIN_PATH_DEFAULT;
+            statusText.Text = Consts.MAIN_GUI_RESET;
 
             txtSQLQuery.Clear();
         }
 
         private void muiRunSQL_Click(object sender, RoutedEventArgs e)
         {
-            RunSQLMenu();
+            SQLQueryFromMenu();
         }
 
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            CustomMessageBox.Show($"PhilAccessSQLInterface\n{Consts.ABOUT_VERSION}\n{Consts.ABOUT_ICON}");
+            CustomMessageBox.Show($"{Consts.PROGRAM_TITLE}\n{Consts.ABOUT_AUTHOR}\n{Consts.ABOUT_VERSION}\n{Consts.ABOUT_ICON}");
         }
         #endregion
     }

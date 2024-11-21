@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region Imports
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,64 +7,25 @@ using System.Threading.Tasks;
 using System.Data.Odbc;
 using System.Data.OleDb;
 using System.Windows.Media.Animation;
+#endregion
 
 namespace PhilAccessSQLInterface
 {
+    // This class does all the heavy lifting for interacting with access and executing sql queries and so on
     internal class DBInterface
     {
-        private bool booDBOpen = false;
-
+        #region Class Variables
         public DBInterface()
         { }
+        #endregion
 
-        // Executes a given SQL query on an Excel file specified by its file path, and returns the results as a string.
-        // 
-        // strQuery: The SQL query to be executed.
-        // strFilePath: The file path of the Excel file to execute the query on.
-        //
-        // returns: A string containing the query results, with columns separated by tabs and rows separated by new lines. If an error occurs, an error message is returned.
-        // Exception: Returns the exception message if an error occurs during query execution.
-        //public async Task<string> ExecuteQuery(string strQuery, string strFilePath)
-        //{
-        //    // Connection string for accessing the Excel file using the Microsoft ACE OLEDB provider
-        //    string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strFilePath;
-        //    using (OleDbConnection connection = new OleDbConnection(connectionString))
-        //    {
-        //        try
-        //        {
-        //            // Open the connection asynchronously
-        //            await connection.OpenAsync();
-        //            OleDbCommand command = new OleDbCommand(strQuery, connection);
-
-        //            // Execute the query asynchronously and obtain the data reader
-        //            using (OleDbDataReader reader = (OleDbDataReader)await command.ExecuteReaderAsync())
-        //            {
-        //                string results = "";
-        //                // Read the query results asynchronously
-        //                while (await reader.ReadAsync())
-        //                {
-        //                    // Append each column's value, separated by tabs
-        //                    for (int i = 0; i < reader.FieldCount; i++)
-        //                    {
-        //                        results += reader[i] + "\t";
-        //                    }
-        //                    // Append a new line for each row
-        //                    results += Environment.NewLine;
-        //                }
-        //                return results;
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // Return the error message if an exception occurs
-        //            return "Error: " + ex.Message;
-        //        }
-        //    }
-        //}
+        #region Database Functions
+        // Execute SQL on the specified filepath
         public async Task<string> ExecuteQuery(string strQuery, string strFilePath)
         {
-            const int columnWidth = 32; // Default width for each column
-                                        // Connection string for accessing the Excel file using the Microsoft ACE OLEDB provider
+            int columnWidth = Consts.RESULTS_COLUMN_WIDTH; // Default width for each column
+                                        
+            // Connection string for accessing the Excel file using the Microsoft ACE OLEDB provider
             string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strFilePath;
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -106,8 +68,6 @@ namespace PhilAccessSQLInterface
             }
         }
 
-
-
         // Attempts to open a connection to an Access database and returns the result as a string.
         //
         // strFilePath: The file path of the Access database to check.
@@ -144,6 +104,6 @@ namespace PhilAccessSQLInterface
 
             return strRetVal;
         }
-
+#endregion
     }
 }
