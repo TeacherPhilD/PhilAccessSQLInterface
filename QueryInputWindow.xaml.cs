@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region Imports
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+#endregion
 
 namespace PhilAccessSQLInterface
 {
@@ -19,13 +21,16 @@ namespace PhilAccessSQLInterface
     /// </summary>
     public partial class QueryInputWindow : Window
     {
+        #region Class Variables
         public string UserInput { get; private set; }
 
         public QueryInputWindow()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Listeners
         private void ExecuteButton_Click(object sender, RoutedEventArgs e)
         {
             // Store the query in the UserInput property
@@ -33,6 +38,7 @@ namespace PhilAccessSQLInterface
             this.DialogResult = true; // Set the dialog result to true to indicate success
             this.Close();
         }
+        #endregion
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PhilAccessSQLInterface.CustomMessageBox"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CustomMessageBox" Height="189" Width="400" Icon="/images/icons/sqlicon.png">
+        Title="About" Height="189" Width="400" Icon="/images/icons/sqlicon.png">
     <Grid>
         <TextBlock x:Name="messageTextBlock" Text="Message" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="153,10,0,0" Height="102" Width="219"/>
         <Button Content="OK" Width="76" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,117,0,0" Click="OkButton_Click"/>

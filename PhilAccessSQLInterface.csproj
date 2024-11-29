@@ -74,8 +74,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Consts.cs" />
-    <Compile Include="CustomMessageBox.xaml.cs">
-      <DependentUpon>CustomMessageBox.xaml</DependentUpon>
+    <Compile Include="AboutMessageBox.xaml.cs">
+      <DependentUpon>AboutMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="DBInterface.cs" />
     <Compile Include="misc\FileLib.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="ResultsWindow.xaml.cs">
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="CustomMessageBox.xaml">
+    <Page Include="AboutMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

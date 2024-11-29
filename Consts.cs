@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace PhilAccessSQLInterface
 {
+    // Project-wide constants
     public class Consts
     {
         #region About
         public const string PROGRAM_TITLE = "PhilAccessSQLInterface";
         public const string ABOUT_AUTHOR = "Phillip Donald";
-        public const string ABOUT_VERSION = "1.0";
+        public const string ABOUT_VERSION = "1.0a";
         public const string ABOUT_ICON = "\nSQL icon created by Freepik - Flaticon\nhttps://www.flaticon.com/free-icons/sql";
         #endregion
 
@@ -30,7 +31,7 @@ namespace PhilAccessSQLInterface
         public const string LOG_SPACER = "--- ---";
         #endregion
 
-        #region Results
+        #region Results Config
         public const int RESULTS_COLUMN_WIDTH = 32; // Default width for each column
         #endregion
     }

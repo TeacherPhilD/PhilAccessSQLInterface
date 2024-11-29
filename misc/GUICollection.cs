@@ -88,11 +88,9 @@ namespace PhilAccessSQLInterface.misc
 
             return arrRetVal;
         }
-
-
         #endregion
 
-        #region How to handle a form closing
+        #region How to handle a form closing (example)
         ///* 
         //         * This is how we can intercept the window closing and do something
         //         * You need to add the following to the xaml of the form
