@@ -79,7 +79,7 @@
     </Compile>
     <Compile Include="DBInterface.cs" />
     <Compile Include="misc\FileLib.cs" />
-    <Compile Include="misc\GUICollection.cs" />
+    <Compile Include="misc\GUILib.cs" />
     <Compile Include="misc\ValidLib.cs" />
     <Compile Include="QueryInputWindow.xaml.cs">
       <DependentUpon>QueryInputWindow.xaml</DependentUpon>

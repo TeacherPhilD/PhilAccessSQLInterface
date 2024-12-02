@@ -24,7 +24,7 @@ namespace PhilAccessSQLInterface
         public async Task<string> ExecuteQuery(string strQuery, string strFilePath)
         {
             int columnWidth = Consts.RESULTS_COLUMN_WIDTH; // Default width for each column
-                                        
+
             // Connection string for accessing the Excel file using the Microsoft ACE OLEDB provider
             string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strFilePath;
             using (OleDbConnection connection = new OleDbConnection(connectionString))
@@ -104,6 +104,6 @@ namespace PhilAccessSQLInterface
 
             return strRetVal;
         }
-#endregion
+        #endregion
     }
 }

@@ -27,14 +27,14 @@ namespace PhilAccessSQLInterface
         string strResult;
         string strQuery;
         FileLib fileLib = new FileLib();
-        GUICollection guiCollection = new GUICollection();
+        GUILib guiCollection = new GUILib();
         #endregion
 
         #region GUI Functions
         public ResultsWindow(string strResultA, string strQueryA)
         {
             InitializeComponent();
-            
+
             strResult = strResultA;
             strQuery = strQueryA;
 
@@ -59,7 +59,7 @@ namespace PhilAccessSQLInterface
             string strFilePath = AppDomain.CurrentDomain.BaseDirectory + "SQL_Log.txt";
             bool booSuccess = SaveSQL(strFilePath, true); // append is true
 
-            if(booSuccess == true)
+            if (booSuccess == true)
             {
                 statusTextBlock.Text = $"SQL Logged to: {strFilePath}";
             }
@@ -82,7 +82,7 @@ namespace PhilAccessSQLInterface
         {
             bool booSuccess = true;
 
-            if(booAppend == false)
+            if (booAppend == false)
             {
                 // Write new file
                 try
@@ -247,7 +247,7 @@ namespace PhilAccessSQLInterface
         private void ChooseFileSQL()
         {
             string strFilePath = fileLib.SaveFileBrowser("SQL_File");
-            
+
             bool booSuccess = SaveSQL(strFilePath);
 
             if (booSuccess == true)
@@ -260,7 +260,7 @@ namespace PhilAccessSQLInterface
         private void ChooseFileResults()
         {
             string strFilePath = fileLib.SaveFileBrowser("Results_File");
-            
+
             bool booSuccess = SaveResults(strFilePath);
 
             if (booSuccess == true)

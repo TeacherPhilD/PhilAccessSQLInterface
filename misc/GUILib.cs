@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace PhilAccessSQLInterface.misc
 {
-    public class GUICollection
+    public class GUILib
     {
         #region Messageboxes and Popups
         //////////////////////

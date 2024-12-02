@@ -14,7 +14,7 @@ namespace PhilAccessSQLInterface
         #region About
         public const string PROGRAM_TITLE = "PhilAccessSQLInterface";
         public const string ABOUT_AUTHOR = "Phillip Donald";
-        public const string ABOUT_VERSION = "1.0a";
+        public const string ABOUT_VERSION = "1.1";
         public const string ABOUT_ICON = "\nSQL icon created by Freepik - Flaticon\nhttps://www.flaticon.com/free-icons/sql";
         #endregion
 
@@ -29,6 +29,9 @@ namespace PhilAccessSQLInterface
         public const string MAIN_SAVE_LOG_FILE_FILTER = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
 
         public const string LOG_SPACER = "--- ---";
+
+        public const string SQL_EXISTENCE_ERROR = "SQL Query is empty, please enter a SQL Query";
+        public const string SQL_EXISTENCE_ERROR_TITLE = "SQL Existence Check Error";
         #endregion
 
         #region Results Config

@@ -29,7 +29,8 @@ namespace PhilAccessSQLInterface
         FileLib fileLib = new FileLib();
         string strFilePath = "error";
         DBInterface dbInterface = new DBInterface();
-        GUICollection guiCollection = new GUICollection();
+        GUILib guiLib = new GUILib();
+        ValidLib validLib = new ValidLib();
         #endregion
 
         #region GUI Init
@@ -61,10 +62,10 @@ namespace PhilAccessSQLInterface
         private void DBSelected()
         {
             btnOpenDB.IsEnabled = false;
-            muiOpenDB.IsEnabled= false;
+            muiOpenDB.IsEnabled = false;
 
             btnRunSQL.IsEnabled = true;
-            muiRunSQL.IsEnabled= true;
+            muiRunSQL.IsEnabled = true;
 
             txtSQLQuery.IsEnabled = true;
         }
@@ -102,16 +103,16 @@ namespace PhilAccessSQLInterface
             progressBar.Visibility = Visibility.Collapsed; // Hide progress bar
             statusText.Text = strResult;                      // Update status with result
 
-            if(strResult.Contains("Error"))
+            if (strResult.Contains("Error"))
             {
-                guiCollection.ErrorPopUp("Error Opening Access Database", strResult);
+                guiLib.ErrorPopUp("Error Opening Access Database", strResult);
             }
             else
             {
                 // Set GUI to state where database has been selected
                 DBSelected();
             }
-            
+
         }
 
         // Grab input from a custom input window instead of the textbox
@@ -124,7 +125,7 @@ namespace PhilAccessSQLInterface
             if (booResult == true)
             {
                 // Execute query
-                ExecuteQuery(inputWindow.UserInput);
+                ExecuteQuery(inputWindow.strUserInput);
             }
         }
         #endregion
@@ -147,7 +148,19 @@ namespace PhilAccessSQLInterface
 
         private void btnRunSQL_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteQuery(txtSQLQuery.Text);
+            string strSQLQuery = txtSQLQuery.Text;
+
+            // Existence check
+            if (validLib.IsStringEmpty(strSQLQuery))
+            {
+                // Nothing entered, give error
+                guiLib.ErrorPopUp(Consts.SQL_EXISTENCE_ERROR_TITLE, Consts.SQL_EXISTENCE_ERROR);
+            }
+            else
+            {
+                // Something entered, continue
+                ExecuteQuery(strSQLQuery);
+            }
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)

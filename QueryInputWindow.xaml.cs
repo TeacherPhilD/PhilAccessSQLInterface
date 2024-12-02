@@ -1,4 +1,5 @@
 ﻿#region Imports
+using PhilAccessSQLInterface.misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,9 @@ namespace PhilAccessSQLInterface
     public partial class QueryInputWindow : Window
     {
         #region Class Variables
-        public string UserInput { get; private set; }
+        public string strUserInput { get; private set; }
+        private GUILib guiLib = new GUILib();
+        private ValidLib validLib = new ValidLib();
 
         public QueryInputWindow()
         {
@@ -33,10 +36,19 @@ namespace PhilAccessSQLInterface
         #region Listeners
         private void ExecuteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Store the query in the UserInput property
-            UserInput = queryTextBox.Text;
-            this.DialogResult = true; // Set the dialog result to true to indicate success
-            this.Close();
+            // Store the query in the strUserInput property
+            strUserInput = queryTextBox.Text;
+            if (validLib.IsStringEmpty(strUserInput))
+            {
+                // Nothing entered, give error
+                guiLib.ErrorPopUp(Consts.SQL_EXISTENCE_ERROR_TITLE, Consts.SQL_EXISTENCE_ERROR);
+            }
+            else
+            {
+                // Something entered, return
+                this.DialogResult = true; // Set the dialog result to true to indicate success
+                this.Close();
+            }
         }
         #endregion
     }
